@@ -78,7 +78,7 @@ class EpiNN(tf.keras.Model):
         FlattenV = tf.keras.layers.Flatten()(x2)
         DenseV = tf.keras.layers.Dense(10)(FlattenV)
         Value = self.output(DenseV)
-        model = tf.keras.Model(input=self.inp, outputs=[Value, Policy])
+        model = tf.keras.Model(input=self.inp_layer, outputs=[Value, Policy])
         model.compile(loss={'value_head': 'mean_squared_error', 'policy_head': tf.nn.softmax_cross_entropy_with_logits},
                       optimizer=tf.keras.optimizers.Adam(learning_rate=self.lr),
                       loss_weights={'value_head': 0.5, 'policy_head': 0.5})

@@ -1,5 +1,4 @@
 import tensorflow as tf
-from loss import softmax_cross_entropy_with_logits
 
 class ResBlock(tf.keras.layers.Layer):
   def __init__(self, kernel_size, filters):
@@ -80,10 +79,15 @@ class EpiNN(tf.keras.Model):
         DenseV = tf.keras.layers.Dense(10)(FlattenV)
         Value = self.output(DenseV)
         model = tf.keras.Model(input=self.inp, outputs=[Value, Policy])
-        model.compile(loss={'value_head': 'mean_squared_error', 'policy_head': softmax_cross_entropy_with_logits},
+        model.compile(loss={'value_head': 'mean_squared_error', 'policy_head': tf.nn.softmax_cross_entropy_with_logits},
                       optimizer=tf.keras.optimizers.Adam(learning_rate=self.lr),
                       loss_weights={'value_head': 0.5, 'policy_head': 0.5})
         return model
+
+
+
+
+
 
 
 

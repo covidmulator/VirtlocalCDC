@@ -73,7 +73,7 @@ class EpiNN(tf.keras.Model):
         x1 = self.res15()(x)
         x2 = self.res16()(x)
         FlattenP = tf.keras.layers.Flatten()(x1)
-        DenseP = tf.keras.layers.Dense([15,15])(FlattenP)
+        DenseP = tf.keras.layers.Dense(self.inp**2)(FlattenP)
         Policy = self.prob(DenseP)
         FlattenV = tf.keras.layers.Flatten()(x2)
         DenseV = tf.keras.layers.Dense(10)(FlattenV)

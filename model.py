@@ -2,33 +2,33 @@ import tensorflow as tf
 from ray.rllib.models.tf.tf_modelv2 import TFModelV2
 
 class ResBlock(tf.keras.layers.Layer):
-  def __init__(self, kernel_size, filters):
-    super(ResBlock, self).__init__(name='residualblock')
-    filters1, filters2, filters3 = filters
+    def __init__(self, kernel_size, filters):
+        super(ResBlock, self).__init__(name='residualblock')
+        filters1, filters2, filters3 = filters
 
-    self.conv2a = tf.keras.layers.Conv2D(filters1, (3, 3))
-    self.bn2a = tf.keras.layers.BatchNormalization()
+        self.conv2a = tf.keras.layers.Conv2D(filters1, (3, 3))
+        self.bn2a = tf.keras.layers.BatchNormalization()
 
-    self.conv2b = tf.keras.layers.Conv2D(filters2, kernel_size, padding='same')
-    self.bn2b = tf.keras.layers.BatchNormalization()
+        self.conv2b = tf.keras.layers.Conv2D(filters2, kernel_size, padding='same')
+        self.bn2b = tf.keras.layers.BatchNormalization()
 
-    self.conv2c = tf.keras.layers.Conv2D(filters3, (3, 3))
-    self.bn2c = tf.keras.layers.BatchNormalization()
+        self.conv2c = tf.keras.layers.Conv2D(filters3, (3, 3))
+        self.bn2c = tf.keras.layers.BatchNormalization()
 
-  def call(self, input_tensor, training=True):
-    x = self.conv2a(input_tensor)
-    x = self.bn2a(x, training=training)
-    x = tf.nn.relu(x)
+    def call(self, input_tensor, training=True):
+        x = self.conv2a(input_tensor)
+        x = self.bn2a(x, training=training)
+        x = tf.nn.relu(x)
 
-    x = self.conv2b(x)
-    x = self.bn2b(x, training=training)
-    x = tf.nn.relu(x)
+        x = self.conv2b(x)
+        x = self.bn2b(x, training=training)
+        x = tf.nn.relu(x)
 
-    x = self.conv2c(x)
-    x = self.bn2c(x, training=training)
+        x = self.conv2c(x)
+        x = self.bn2c(x, training=training)
 
-    x += input_tensor
-    return tf.nn.relu(x)
+        x += input_tensor
+        return tf.nn.relu(x)
 
 class EpiNN(TFModelV2):
     def __init__(self, obs_space, action_space, num_outputs, model_config, name):

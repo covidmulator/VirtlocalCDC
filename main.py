@@ -1,12 +1,12 @@
 import ray
-import model
+from model import EpiNN
 import ray.rllib.agents.a3c as a3c
 from ray.tune.logger import pretty_print
 from ray.rllib.models import ModelCatalog
 
 ray.init(num_gpus=2)
 config = a3c.DEFAULT_CONFIG.copy()
-VirtLocalCDC= model.EpiNN()
+VirtLocalCDC = EpiNN()
 ModelCatalog.register_custom_model("CDC_model", VirtLocalCDC)
 
 config["num_gpus"] = 2

@@ -3,4 +3,6 @@ Mastering Control the epidemic situation based on  A3C(Asynchronous Actor Critic
 
 Score: 1960 +- 10
 
+![Fig1](https://github.com/covidmulator/VirtlocalCDC/blob/master/Figure1.png)
 
+![Fig1](https://github.com/covidmulator/VirtlocalCDC/blob/master/Figure2.png)
